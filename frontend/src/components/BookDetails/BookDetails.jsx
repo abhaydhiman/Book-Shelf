@@ -6,6 +6,7 @@ import { Carousel, Card, Button, Form, Modal } from 'react-bootstrap';
 import axios from 'axios';
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 const BookDetails = () => {
   const { bookId } = useParams();
   const [books, setBooks] = useState([]);
@@ -16,10 +17,6 @@ const BookDetails = () => {
     reviewText: '',
     rating: 5,
   });
-  const navigate = useNavigate();
-
-  // const [bookId, setBookId] = useState('');
-  // const [books, setBooks] = useState([]);
 
   useEffect(() => {
     fetchBooks();
@@ -27,23 +24,15 @@ const BookDetails = () => {
 
   const fetchBooks = async () => {
     try {
-      // console.log('________________________________________');
-      const response = await axios.get(`${API_BASE_URL}users/book_list/`);
-      // console.log(response.data);
+      const response = await axios.get(`${API_BASE_URL}/users/book_list/`);
       setBooks(response.data);
       setDataFetched(true);
     } catch (error) {
-      // console.log('------------------------------------');
       console.error('Error fetching books:', error);
     }
   };
 
-
-  // console.log("------", bookId, books);
-
-  const currBook = books.find((bookItem) => bookItem.id == bookId);
-
-  // console.log(currBook);
+  const currBook = books.find((bookItem) => bookItem.id === parseInt(bookId, 10) ? bookItem: null);
 
   const handleReviewChange = (event) => {
     const { name, value } = event.target;
@@ -56,27 +45,20 @@ const BookDetails = () => {
   const handleSubmitReview = async (event) => {
     event.preventDefault();
     try {
-      // Make a POST request to submit the review to the backend
       await axios.post(`${API_BASE_URL}/users/submit_review/`, {
         bookId: currBook.id,
         review: userReview,
       });
 
-      console.log("fjksdhfjksdhjkfhkjshdkjfhsjkf");
-
-      // Show the success modal
       setShowModal(true);
 
-      // Append the new review to the currBook object
       const updatedBook = {
         ...currBook,
         reviews: [...currBook.reviews, userReview],
       };
 
-      // Update the books state with the updatedBook
       setBooks(books.map(book => book.id === currBook.id ? updatedBook : book));
 
-      // Reset the review form fields after successful submission
       setUserReview({
         name: '',
         reviewText: '',
@@ -89,27 +71,21 @@ const BookDetails = () => {
 
   const handleDownload = async () => {
     try {
-      // Replace 'example.pdf' with the name of the file you want to download
       const fileToDownload = currBook.pdf.split("/").pop();
-      console.log(fileToDownload);
       const response = await axios.get(`${API_BASE_URL}/users/download/${fileToDownload}`, {
         responseType: 'blob',
       });
 
-      // Create a Blob from the response data
       const blob = new Blob([response.data], { type: 'application/octet-stream' });
 
-      // Generate a download link for the Blob
       const url = URL.createObjectURL(blob);
 
-      // Create a temporary anchor element and click it to trigger the download
       const downloadLink = document.createElement('a');
       downloadLink.href = url;
       downloadLink.download = fileToDownload;
       document.body.appendChild(downloadLink);
       downloadLink.click();
 
-      // Remove the temporary anchor element
       document.body.removeChild(downloadLink);
     } catch (error) {
       console.error('Error downloading file:', error);

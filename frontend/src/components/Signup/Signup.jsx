@@ -28,19 +28,16 @@ const Signup = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Replace 'YOUR_BACKEND_URL' with the actual URL of your Django backend API.
         const backendUrl = `${API_BASE_URL}/users/signup/`;
-
+        console.log("hkfasjdfhkjadshfk", backendUrl);
         axios
             .post(backendUrl, formData)
             .then((response) => {
-                // Handle successful signup, e.g., display a success message to the user or redirect to the login page.
-                console.log('Signup successful!', response.data);
+                console.log('Signup successful!', response);
                 navigate('/display')
             })
             .catch((error) => {
-                // Handle signup error, e.g., display an error message to the user.
-                console.error('Signup failed:', error.response.data);
+                console.error('Signup failed:', error.response);
             });
     };
 
