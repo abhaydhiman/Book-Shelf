@@ -47,10 +47,29 @@ INSTALLED_APPS = [
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
+    'https://boook-shelf.netlify.app/',
     # Add other allowed origins if needed
 ]
 
-CORS_ALLOW_HEADERS = ["origin"]
+CORS_ALLOW_METHODS = [
+    'GET',
+    'POST',
+    'PUT',
+    'PATCH',
+    'DELETE',
+    'OPTIONS',
+]
+
+CORS_ALLOW_HEADERS = ['accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+]
 CORS_ORIGIN_ALLOW_ALL = True
 
 MIDDLEWARE = [
