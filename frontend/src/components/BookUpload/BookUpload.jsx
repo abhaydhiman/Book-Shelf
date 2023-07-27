@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Modal, Button } from 'react-bootstrap';
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 const BookUpload = () => {
 
@@ -42,7 +43,7 @@ const BookUpload = () => {
 
         try {
             // Send the bookData to the backend using Axios with the FormData object
-            const response = await axios.post('http://127.0.0.1:8000/users/upload_book/', formDataObj, {
+            const response = await axios.post(`${API_BASE_URL}/users/upload_book/`, formDataObj, {
                 headers: {
                     'Content-Type': 'multipart/form-data', // Set the content type to multipart/form-data
                 },

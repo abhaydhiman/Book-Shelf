@@ -5,6 +5,8 @@ import { Modal, Button } from 'react-bootstrap';
 import UploadButton from '../UploadButton/UploadButton';
 import axios from "axios";
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 function BookDisplay() {
   // Sample book data - Replace this with your actual book data
   const navigate = useNavigate();
@@ -18,7 +20,7 @@ function BookDisplay() {
 
     const fetchBooks = async () => {
       try {
-          const response = await axios.get('http://127.0.0.1:8000/users/book_list/');
+          const response = await axios.get(`${API_BASE_URL}/users/book_list/`);
           setBooks(response.data);
       } catch (error) {
           console.error('Error fetching books:', error);

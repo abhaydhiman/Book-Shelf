@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Carousel, Card, Button, Form, Modal } from 'react-bootstrap';
 import axios from 'axios';
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 const BookDetails = () => {
   const { bookId } = useParams();
   const [books, setBooks] = useState([]);
@@ -27,7 +28,7 @@ const BookDetails = () => {
   const fetchBooks = async () => {
     try {
       // console.log('________________________________________');
-      const response = await axios.get('http://127.0.0.1:8000/users/book_list/');
+      const response = await axios.get(`${API_BASE_URL}users/book_list/`);
       // console.log(response.data);
       setBooks(response.data);
       setDataFetched(true);
@@ -56,7 +57,7 @@ const BookDetails = () => {
     event.preventDefault();
     try {
       // Make a POST request to submit the review to the backend
-      await axios.post('http://127.0.0.1:8000/users/submit_review/', {
+      await axios.post(`${API_BASE_URL}/users/submit_review/`, {
         bookId: currBook.id,
         review: userReview,
       });
@@ -91,7 +92,7 @@ const BookDetails = () => {
       // Replace 'example.pdf' with the name of the file you want to download
       const fileToDownload = currBook.pdf.split("/").pop();
       console.log(fileToDownload);
-      const response = await axios.get(`http://127.0.0.1:8000/users/download/${fileToDownload}`, {
+      const response = await axios.get(`${API_BASE_URL}/users/download/${fileToDownload}`, {
         responseType: 'blob',
       });
 

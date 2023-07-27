@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 const Login = () => {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
@@ -26,7 +28,7 @@ const Login = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const backendUrl = 'http://127.0.0.1:8000/users/login/';
+        const backendUrl = `${API_BASE_URL}/users/login/`;
 
         axios
             .post(backendUrl, {username: formData.username,

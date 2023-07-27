@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 const Signup = () => {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
@@ -27,7 +29,7 @@ const Signup = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         // Replace 'YOUR_BACKEND_URL' with the actual URL of your Django backend API.
-        const backendUrl = 'http://127.0.0.1:8000/users/signup/';
+        const backendUrl = `${API_BASE_URL}/users/signup/`;
 
         axios
             .post(backendUrl, formData)
