@@ -3,9 +3,12 @@ from django.db import models
 
 class CustomUser(AbstractUser):
     # No additional fields needed for this simplified example
-    pass
+    class Meta:
+        db_table = 'CustomUser'
 
 class Book(models.Model):
+    class Meta:
+        db_table = 'book'
     title = models.CharField(max_length=200)
     author = models.CharField(max_length=100)
     genre = models.CharField(max_length=100)
