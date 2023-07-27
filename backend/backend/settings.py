@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-82dg)f#yylkohk-(_*zqikf*i*!7&hv^^rxg(^kib4fb4t1(yz
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['book-shelf-api-w4v6.onrender.com']
 
 
 # Application definition
